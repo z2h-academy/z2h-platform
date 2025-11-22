@@ -1,0 +1,28 @@
+{
+  "name": "K3D-LAKEHOUSE Core Dev",
+  "build": {
+    "dockerfile": "../Dockerfile.devcontainer",
+    "context": ".."
+  },
+
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.formatOnSave": true
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "redhat.vscode-yaml",
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
+      ]
+    }
+  },
+
+  "remoteUser": "z2h",
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

@@ -1,0 +1,46 @@
+{
+  "name": "K3D-Lakehouse Student",
+  "build": {
+    "dockerfile": "../Dockerfile.devcontainer",
+    "context": ".."
+  },
+
+  // Usuario normal para seguridad
+  "remoteUser": "z2h",
+
+  // Variables mínimas necesarias para funcionamiento
+  "containerEnv": {
+    "K3D_TOKEN": "${localEnv:K3D_TOKEN}" 
+  },
+
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.formatOnSave": true
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "github.vscode-github-actions"
+      ]
+    }
+  },
+
+  // Comandos automáticos luego de crear el contenedor
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  // Auto-forward para UI internas (si las hubiera)
+  "forwardPorts": [8888, 3000, 8080],
+
+  // Importante: permitir que el runtime pueda ejecutar docker-in-docker y k3d
+  "runArgs": [
+    "--privileged",
+    "--network=host"
+  ]
+}
+

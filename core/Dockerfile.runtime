@@ -1,0 +1,48 @@
+# -----------------------------------------------------------------------------
+# Dockerfile.runtime
+# Imagen privada del runtime K3D-LAKEHOUSE
+# Nunca se expone públicamente
+# -----------------------------------------------------------------------------
+
+FROM ubuntu:22.04
+
+SHELL ["/bin/bash", "-c"]
+
+# -----------------------------------------------
+# 1. Dependencias mínimas para ejecutar pods
+# -----------------------------------------------
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    bash \
+    curl \
+    wget \
+    ca-certificates \
+    jq \
+    tini \
+    && rm -rf /var/lib/apt/lists/*
+
+# tini como init
+ENTRYPOINT ["/usr/bin/tini", "--"]
+
+# -----------------------------------------------
+# 2. Copiar runtime privado (tu producto)
+# -----------------------------------------------
+WORKDIR /app
+
+# Tú decides qué va dentro:
+# - manifests generados
+# - jinja templates
+# - scripts de control
+# - contenedores sidecar
+# - assets internos
+COPY runtime/ /app/runtime/
+COPY scripts/ /app/scripts/
+
+# (Opcional) instalar algo específico de tu plataforma
+# RUN pip install -r /app/runtime/requirements.txt
+
+# -----------------------------------------------
+# 3. Permisos
+# -----------------------------------------------
+RUN chmod -R 755 /app
+
+CMD ["bash", "/app/scripts/start.sh"]

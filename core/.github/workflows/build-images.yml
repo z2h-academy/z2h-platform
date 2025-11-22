@@ -1,0 +1,51 @@
+name: Build and Push Images (Devcontainer + Runtime)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+jobs:
+  build-devcontainer:
+    name: Build Devcontainer Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push devcontainer image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile.devcontainer
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/k3d-devcontainer:latest
+
+  build-runtime:
+    name: Build Runtime Image (Private)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push runtime image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile.runtime
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/k3d-lakehouse-runtime:latest
