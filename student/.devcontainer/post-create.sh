@@ -67,7 +67,7 @@ fi
 #######################################################
 echo "🔐 Autenticando docker con GHCR..."
 
-echo "$K3D_TOKEN" | docker login ghcr.io -u USERNAME_PLACEHOLDER --password-stdin
+echo "$K3D_TOKEN" | docker login ghcr.io -u z2h-academy --password-stdin
 
 echo "✅ Autenticação correcta."
 

@@ -1,0 +1,66 @@
+# Imagen base ligera para devcontainers
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+
+SHELL ["/bin/bash", "-c"]
+
+############################################################
+# 1. Instalar dependencias básicas
+############################################################
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        curl ca-certificates git jq \
+        bash-completion \
+        iptables iproute2 iputils-ping dnsutils \
+        docker.io \
+        python3 python3-pip \
+        vim nano less htop unzip \
+        sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+
+############################################################
+# 2. Crear usuario "z2h" (igual que en runtime)
+############################################################
+RUN useradd -ms /bin/bash z2h && \
+    echo "z2h ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    usermod -aG docker z2h
+
+
+############################################################
+# 3. Docker-in-Docker modo cliente
+############################################################
+# Devcontainers ya montan el socket del host en /var/run/docker.sock
+# Solo aseguramos permisos para k3d
+RUN mkdir -p /var/run && chmod 777 /var/run
+
+
+############################################################
+# 4. Instalar kubectl
+############################################################
+RUN curl -sLO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl && mv kubectl /usr/local/bin/kubectl
+
+
+############################################################
+# 5. Instalar k3d (en post-create se usa el oficial)
+############################################################
+# Se instala una versión temporal solo para fallback
+RUN curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+
+############################################################
+# 6. Variables de entorno
+############################################################
+ENV DEBIAN_FRONTEND=noninteractive
+ENV K3D_FIX_DOCKER_GROUP=1
+
+############################################################
+# 7. Usuario por defecto
+############################################################
+USER z2h
+WORKDIR /home/z2h
+
+############################################################
+# 8. Mensaje de inicio
+############################################################
+RUN echo 'echo "🔥 Bienvenido al entorno STUDENT — K3D-LAKEHOUSE"' >> ~/.bashrc
