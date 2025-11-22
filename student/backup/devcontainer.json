@@ -1,0 +1,43 @@
+{
+  "name": "K3D-Lakehouse Student",
+  "build": {
+    "dockerfile": "../Dockerfile.devcontainer",
+    "context": ".."
+  },
+
+  "remoteUser": "z2h",
+
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.formatOnSave": true
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "github.vscode-github-actions"
+      ]
+    }
+  },
+
+  "containerEnv": {
+    "K3D_TOKEN": "${localEnv:K3D_TOKEN}"
+  },
+
+  "runArgs": [
+    "--network=host"
+  ],
+
+  "mounts": [
+    "source=/var/run/docker-host.sock,target=/var/run/docker.sock,type=bind"
+  ],
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  "forwardPorts": [8888, 8080, 3000]
+}
