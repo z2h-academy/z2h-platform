@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  jupyter-chart:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-11-24T17:23:47.050527787Z"
+    description: Jupyter Pod + Service
+    digest: 3d639e1f2955a11adaa726b70e728f405632812683e2ff142b27094d41b32a44
+    name: jupyter-chart
+    type: application
+    urls:
+    - https://z2h-platform.web.app/jupyter-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-11-24T17:23:47.050307819Z"
