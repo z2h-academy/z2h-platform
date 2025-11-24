@@ -1,0 +1,3 @@
+[submodule "student-test"]
+	path = student-test
+	url = git@github.com:z2h-academy/student-test.git
