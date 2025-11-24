@@ -1,0 +1,7 @@
+apiVersion: v2
+name: postgres-chart
+description: Simple Postgres deployment for k3d
+type: application
+version: 0.1.0
+appVersion: "13"
+

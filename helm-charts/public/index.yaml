@@ -3,12 +3,23 @@ entries:
   jupyter-chart:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-11-24T17:23:47.050527787Z"
+    created: "2025-11-24T23:37:55.6194154Z"
     description: Jupyter Pod + Service
-    digest: 3d639e1f2955a11adaa726b70e728f405632812683e2ff142b27094d41b32a44
+    digest: 66316775536177f5a11e36f0aeeb06355623be95ad3e55142ce05eef5cd97fa5
     name: jupyter-chart
     type: application
     urls:
     - https://z2h-platform.web.app/jupyter-chart-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-24T17:23:47.050307819Z"
+  postgres-chart:
+  - apiVersion: v2
+    appVersion: "13"
+    created: "2025-11-24T23:37:55.619868477Z"
+    description: Simple Postgres deployment for k3d
+    digest: 1baafc77e2948d5fcaf58ff8c3696c7461b677c9aa59484733b1afe61d95330c
+    name: postgres-chart
+    type: application
+    urls:
+    - https://z2h-platform.web.app/postgres-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-11-24T23:37:55.61867712Z"

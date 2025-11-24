@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "postgres-chart.fullname" . }}-service
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "postgres-chart.name" . }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 5432
+      nodePort: {{ .Values.service.nodePort | default nil }}
+

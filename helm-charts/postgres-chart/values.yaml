@@ -1,0 +1,21 @@
+image:
+  repository: 3xploiterx/postgres
+  tag: "13"
+  pullPolicy: IfNotPresent
+
+postgres:
+  user: postgres
+  password: changeme1234
+  database: mydb
+
+service:
+  type: NodePort
+  port: 5432
+  nodePort: 30032
+
+storage:
+  size: 5Gi
+  storageClassName: local-path
+
+resources: {}
+
