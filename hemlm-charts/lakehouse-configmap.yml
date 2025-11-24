@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jupyter-config
+data:
+  CHOWN_EXTRA: "/home/jovyan/work/"
+  CHOWN_EXTRA_OPTS: "-R"
+  JUPYTER_ENABLE_LAB: "yes"
+  NEWS_DATA: "/home/jovyan/work"

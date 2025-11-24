@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jupyter
+  labels:
+    app: jupyter
+spec:
+  restartPolicy: Always
+
+  volumes:
+    - name: notebooks
+      hostPath:
+        path: /home/z2h/dev/mini-data-platform-dev/notebooks   # <- usa ruta absoluta
+        type: DirectoryOrCreate
+
+  containers:
+    - name: jupyter
+      image: 3xploiterx/jupyter-base:latest
+      # ejecutar usando shell para que haga expansión de env var como en compose
+      command: ["sh", "-c", "start-notebook.sh --NotebookApp.token=${JUPYTER_PASSWORD}"]
+      env:
+        - name: CHOWN_EXTRA
+          value: "/home/jovyan/work/"
+        - name: CHOWN_EXTRA_OPTS
+          value: "-R"
+        - name: JUPYTER_ENABLE_LAB
+          value: "yes"
+        - name: JUPYTER_PASSWORD
+          value: "xploiter"
+        - name: NEWS_DATA
+          value: "/home/jovyan/work"
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+      volumeMounts:
+        - name: notebooks
+          mountPath: /home/jovyan/work

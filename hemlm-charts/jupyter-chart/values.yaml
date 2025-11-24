@@ -1,0 +1,14 @@
+image:
+  repository: 3xploiterx/jupyter-base
+  tag: latest
+  pullPolicy: IfNotPresent
+
+jupyter:
+  password: "xploiter"
+
+volumes:
+  hostPath: "/home/z2h/dev/mini-data-platform-dev/notebooks"
+
+service:
+  nodePort: 30088
+

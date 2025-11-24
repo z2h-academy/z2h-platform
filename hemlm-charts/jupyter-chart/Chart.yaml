@@ -1,0 +1,7 @@
+apiVersion: v2
+name: jupyter-chart
+description: Jupyter Pod + Service
+type: application
+version: 0.1.0
+appVersion: "1.0"
+
