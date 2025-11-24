@@ -1,0 +1,6 @@
+FROM alpine:3.19
+RUN apk add --no-cache openssl bash
+# copia el script (asegúrate de tener check-license.sh en la misma carpeta)
+COPY check-license.sh /usr/local/bin/check-license.sh
+RUN chmod 0755 /usr/local/bin/check-license.sh
+ENTRYPOINT ["/usr/local/bin/check-license.sh"]
