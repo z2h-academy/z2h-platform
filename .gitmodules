@@ -1,3 +1,6 @@
 [submodule "student-test"]
 	path = student-test
 	url = git@github.com:z2h-academy/student-test.git
+[submodule "student-lakehouse"]
+	path = student-lakehouse
+	url = git@github.com:z2h-academy/student-lakehouse.git
